@@ -8,6 +8,7 @@ License:	GPL v2
 Group:		X11/Applications/Multimedia
 #Icon:		-
 Source0:	http://www.sacredchao.net/~piman/software/%{name}-%{version}.tar.gz
+# Source0-md5:	9a8f843f9f55414ea9bb173762f1fe39
 URL:		http://www.sacredchao.net/quodlibet/wiki
 BuildRequires:	python-devel
 BuildRequires:	python-pygtk-devel

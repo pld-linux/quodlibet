@@ -1,0 +1,12 @@
+diff -durN quodlibet-0.10.1.orig/library.py quodlibet-0.10.1/library.py
+--- quodlibet-0.10.1.orig/library.py	2005-03-30 11:25:15.000000000 +0200
++++ quodlibet-0.10.1/library.py	2005-05-08 20:16:39.000000000 +0200
+@@ -233,7 +233,7 @@
+         added, changed = 0, 0
+ 
+         for d in dirs:
+-            print to(_("Checking %s") % d)
++            print to(_("Checking %s") % d.decode("utf-8", "replace"))
+             d = os.path.expanduser(d)
+             for path, dnames, fnames in os.walk(d):
+                 for fn in fnames:

@@ -28,7 +28,8 @@ this for all the file formats it supports -- Ogg Vorbis, FLAC, MP3,
 Musepack, and MOD.
 
 To use all of Quod Libet features (including audio playback) you will
-also need the following packages: python-pyvorbis, python-pyao
+also need the following packages: python-pyvorbis, python-pyao, 
+python-mad, python-pyid3lib.
 
 %prep
 %setup -q

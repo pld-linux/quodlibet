@@ -2,7 +2,7 @@
 Summary:	Quod Libet - GTK+-based audio player
 Name:		quodlibet
 Version:	0.10.1
-Release:	0.2
+Release:	1
 Epoch:		0
 License:	GPL v2
 Group:		X11/Applications/Multimedia

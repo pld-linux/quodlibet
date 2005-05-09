@@ -1,12 +1,11 @@
-#
 Summary:	Quod Libet - GTK+-based audio player
+Summary(pl):	Quod Libet - odtwarzacz d¼wiêku oparty na GTK+
 Name:		quodlibet
 Version:	0.10.1
 Release:	1
 Epoch:		0
 License:	GPL v2
 Group:		X11/Applications/Multimedia
-#Icon:		-
 Source0:	http://www.sacredchao.net/~piman/software/%{name}-%{version}.tar.gz
 # Source0-md5:	9a8f843f9f55414ea9bb173762f1fe39
 Patch0:		%{name}-non_utf8_filenames.patch
@@ -30,6 +29,19 @@ Musepack, and MOD.
 To use all of Quod Libet features (including audio playback) you will
 also need the following packages: python-pyvorbis, python-pyao, 
 python-mad, python-pyid3lib.
+
+%description -l pl
+Quod Libet to oparty na GTK+ odtwarzacz d¼wiêku napisany w Pythonie.
+Jest zaprojektowany w oparciu o ideê, ¿e sami wiemy lepiej, jak chcemy
+organizowaæ swoj± muzykê. Odtwarzacz pozwala tworzyæ playlisty w
+oparciu o wyra¿enia regularne (nie jest to powód do zmartwienia,
+zwyk³e wyszukiwanie te¿ dzia³a). Pozwala wy¶wietlaæ i modyfikowaæ
+dowolne znaczniki w pliku. Umo¿liwia to dla wszystkich obs³ugiwanych
+formatów d¼wiêkowych: Ogg Vorbis, FLAC, MP3, Musepack i MOD.
+
+Aby u¿ywaæ wszystkich mo¿liwo¶ci Quod Libet (w³±cznie z odtwarzaniem
+d¼wiêku) potrzebne s± tak¿e nastêpuj±ce pakiety: python-pyvorbis,
+python-pyao, python-mad, python-pyid3lib.
 
 %prep
 %setup -q

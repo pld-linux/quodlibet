@@ -1,20 +1,19 @@
 Summary:	Quod Libet - GTK+-based audio player
 Summary(pl):	Quod Libet - odtwarzacz d¼wiêku oparty na GTK+
 Name:		quodlibet
-Version:	0.10.1
+Version:	0.11
 Release:	1
 Epoch:		0
 License:	GPL v2
 Group:		X11/Applications/Multimedia
 Source0:	http://www.sacredchao.net/~piman/software/%{name}-%{version}.tar.gz
-# Source0-md5:	9a8f843f9f55414ea9bb173762f1fe39
-Patch0:		%{name}-non_utf8_filenames.patch
+# Source0-md5:	9d1610bf783c9d260d2a6b33e529c6da
 URL:		http://www.sacredchao.net/quodlibet/wiki
 BuildRequires:	python-devel
 BuildRequires:	python-pygtk-devel
 %pyrequires_eq	python-modules
 Requires:	gtk+2 >= 2.6.0
-Requires:	python-pygtk-gtk >= 2.4.0
+Requires:	python-pygtk-gtk >= 2.6.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -45,7 +44,6 @@ python-pyao, python-mad, python-pyid3lib.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %{__make} extensions

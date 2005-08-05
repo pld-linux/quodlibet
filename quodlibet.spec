@@ -64,6 +64,14 @@ rm -rf $RPM_BUILD_ROOT
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post
+%banner %{name} -e << EOF
+Remember to install appropriate python  plugins for file
+you want to play:
+- python-mad (for MP3s)
+- python-pyvorbis (for Ogg Vorbis)
+EOF
+
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc NEWS README

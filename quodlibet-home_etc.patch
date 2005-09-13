@@ -1,0 +1,13 @@
+Pliki quodlibet-0.13/config.pyc i quodlibet-0.13.mod/config.pyc ró¿ni± siê
+diff -Nur quodlibet-0.13/const.py quodlibet-0.13.mod/const.py
+--- quodlibet-0.13/const.py	2005-08-21 01:27:08.000000000 +0200
++++ quodlibet-0.13.mod/const.py	2005-09-13 21:42:16.000000000 +0200
+@@ -6,7 +6,7 @@
+ VERSION = "0.13"
+ 
+ HOME    = os.path.expanduser("~")
+-DIR     = os.path.join(HOME, ".quodlibet")
++DIR	= os.path.join(os.getenv("HOME_ETC",HOME),".quodlibet")
+ CONTROL = os.path.join(DIR, "control")
+ CONFIG  = os.path.join(DIR, "config")
+ QUEUE   = os.path.join(DIR, "queue")

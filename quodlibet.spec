@@ -18,6 +18,8 @@ Source0:	http://www.sacredchao.net/~piman/software/%{name}-%{version}.tar.gz
 # Source0-md5:	24e81a7d41594372117e45053807b1fe
 Patch1:		%{name}-home_etc.patch
 URL:		http://www.sacredchao.net/quodlibet/wiki
+BuildRequires:	gtk+2-devel >= 2.6.0
+BuildRequires:	pkgconfig
 BuildRequires:	python-devel
 BuildRequires:	python-pygtk-devel
 %pyrequires_eq	python-modules

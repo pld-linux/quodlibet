@@ -1,11 +1,6 @@
 #
-# TODO:
-# - check what's up with gstreamer backend
-#
 # Conditional build:
 %bcond_without	home_etc	# don't use home_etc
-#
-%define		date 20050731
 #
 Summary:	Quod Libet - GTK+-based audio player
 Summary(pl):	Quod Libet - odtwarzacz d¼wiêku oparty na GTK+
@@ -19,16 +14,16 @@ Source0:	http://www.sacredchao.net/~piman/software/%{name}-%{version}.tar.gz
 Patch0:		%{name}-home_etc.patch
 Patch1:		%{name}-Makefile.patch
 URL:		http://www.sacredchao.net/quodlibet/wiki
-BuildRequires:	gtk+2-devel >= 2.6.0
+BuildRequires:	gtk+2-devel >= 2:2.6.0
 BuildRequires:	pkgconfig
 BuildRequires:	python-devel
 BuildRequires:	python-pygtk-devel
 %pyrequires_eq	python-modules
 Requires:	gstreamer-GConf
-Requires:	gtk+2 >= 2.6.0
+Requires:	gtk+2 >= 2:2.6.0
 Requires:	python-gnome-gconf
-Requires:	python-gstreamer
-Requires:	python-pygtk-gtk >= 2.6.0
+Requires:	python-gstreamer >= 0.8.2
+Requires:	python-pygtk-gtk >= 2:2.6.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -83,6 +78,7 @@ rm -rf $RPM_BUILD_ROOT
 %banner %{name} -e << EOF
 Remember to install appropriate python modules for files
 you want to play:
+- python-flac (for FLACs)
 - python-mad and gstreamer-mad (for MP3s)
 - python-pyvorbis and gstreamer-vorbis (for Ogg Vorbis)
 and audio output:

@@ -25,7 +25,7 @@ diff -aurN quodlibet-0.14.orig/Makefile quodlibet-0.14/Makefile
 +	install -m 644 $*.png $(DESTDIR)$(LIBDIR)/quodlibet
  	install -D -m 644 $*.desktop $(DESTDIR)$(PREFIX)/share/applications/$*.desktop
 -	ln -sf ../$(TO)/$*.py $(DESTDIR)$(PREFIX)/bin/$*
-+	ln -sf ../$(LIBDIR)/quodlibet/$*.py $(DESTDIR)$(PREFIX)/bin/$*
++	ln -sf $(LIBDIR)/quodlibet/$*.py $(DESTDIR)$(PREFIX)/bin/$*
  
  clean:
  	rm -f *.pyc */*.pyc quodlibet.zip $(EXTENSIONS) messages.mo

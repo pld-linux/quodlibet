@@ -24,11 +24,11 @@ BuildRequires:	pkgconfig
 BuildRequires:	python-devel
 BuildRequires:	python-pygtk-devel
 %pyrequires_eq	python-modules
+Requires:	gstreamer-GConf
 Requires:	gtk+2 >= 2.6.0
-Requires:	python-pygtk-gtk >= 2.6.0
 Requires:	python-gnome-gconf
 Requires:	python-gstreamer
-Requires:	gstreamer-GConf
+Requires:	python-pygtk-gtk >= 2.6.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description

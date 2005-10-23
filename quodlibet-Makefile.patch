@@ -12,7 +12,7 @@ diff -aurN quodlibet-0.14.orig/Makefile quodlibet-0.14/Makefile
  	./quickzip.py quodlibet.zip $(MODULES)
 -	install -m 644 quodlibet.zip ql-*.png $(DESTDIR)$(PREFIX)/$(TO)
 -	-for E in $(EXTENSIONS); do (test -e $$E && install -m 755 $$E $(DESTDIR)$(PREFIX)/$(TO)); done
-+	install -m 644 quodlibet.zip ql-*.png $(DESTDIR)
++	install -m 644 quodlibet.zip ql-*.png $(DESTDIR)$(LIBDIR)/quodlibet
 +	-for E in $(EXTENSIONS); do (test -e $$E && install -m 755 $$E $(DESTDIR)$(LIBDIR)/quodlibet); done
  	cd po && make install-po DESTDIR=$(DESTDIR)
  

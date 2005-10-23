@@ -16,7 +16,8 @@ License:	GPL v2
 Group:		X11/Applications/Multimedia
 Source0:	http://www.sacredchao.net/~piman/software/%{name}-%{version}.tar.gz
 # Source0-md5:	b79a701d3fb769e37e0ec1aab49c4d65
-Patch1:		%{name}-home_etc.patch
+Patch0:		%{name}-home_etc.patch
+Patch1:		%{name}-Makefile.patch
 URL:		http://www.sacredchao.net/quodlibet/wiki
 BuildRequires:	gtk+2-devel >= 2.6.0
 BuildRequires:	pkgconfig
@@ -58,7 +59,8 @@ python-pyao, python-mad, python-pyid3lib.
 
 %prep
 %setup -q
-%{?with_home_etc:%patch1 -p1}
+%{?with_home_etc:%patch0 -p1}
+%patch1 -p1
 
 %build
 %{__make} extensions
@@ -68,6 +70,7 @@ python-pyao, python-mad, python-pyid3lib.
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
+	LIBDIR=%{_libdir} \
 	PREFIX=%{_prefix} \
 	DESTDIR=$RPM_BUILD_ROOT
 

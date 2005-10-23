@@ -1,0 +1,26 @@
+diff -aurN quodlibet-0.14.orig/Makefile quodlibet-0.14/Makefile
+--- quodlibet-0.14.orig/Makefile	2005-10-07 22:48:20.000000000 +0200
++++ quodlibet-0.14/Makefile	2005-10-23 21:36:50.000000000 +0200
+@@ -12,19 +12,19 @@
+ make-install-dirs:
+ 	mkdir -p $(DESTDIR)$(PREFIX)/share/man/man1
+ 	mkdir -p $(DESTDIR)$(PREFIX)/bin
+-	mkdir -p $(DESTDIR)$(PREFIX)/$(TO)
++	mkdir -p $(DESTDIR)$(LIBDIR)/quodlibet
+ 
+ install: make-install-dirs install-exfalso install-quodlibet
+ 	./quickzip.py quodlibet.zip $(MODULES)
+ 	install -m 644 quodlibet.zip ql-*.png $(DESTDIR)$(PREFIX)/$(TO)
+-	-for E in $(EXTENSIONS); do (test -e $$E && install -m 755 $$E $(DESTDIR)$(PREFIX)/$(TO)); done
++	-for E in $(EXTENSIONS); do (test -e $$E && install -m 755 $$E $(DESTDIR)$(LIBDIR)/quodlibet); done
+ 	cd po && make install-po DESTDIR=$(DESTDIR)
+ 
+ install-%: make-install-dirs
+ 	install -m 755 $*.py $(DESTDIR)$(PREFIX)/$(TO)
+ 	install -m 644 $*.1 $(DESTDIR)$(PREFIX)/share/man/man1/$*.1
+ 	install -D -m 644 $*.png $(DESTDIR)$(PREFIX)/share/pixmaps/$*.png
+-	install -m 644 $*.png $(DESTDIR)$(PREFIX)/$(TO)
++	install -m 644 $*.png $(DESTDIR)$(LIBDIR)/quodlibet
+ 	install -D -m 644 $*.desktop $(DESTDIR)$(PREFIX)/share/applications/$*.desktop
+ 	ln -sf ../$(TO)/$*.py $(DESTDIR)$(PREFIX)/bin/$*
+ 

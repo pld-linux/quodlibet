@@ -15,6 +15,7 @@ Patch0:		%{name}-home_etc.patch
 Patch1:		%{name}-Makefile.patch
 URL:		http://www.sacredchao.net/quodlibet/wiki
 BuildRequires:	gtk+2-devel >= 2:2.6.0
+BuildRequires:	intltool
 BuildRequires:	pkgconfig
 BuildRequires:	python-devel
 BuildRequires:	python-pygtk-devel

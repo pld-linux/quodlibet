@@ -1,20 +1,24 @@
-diff -aurN quodlibet-0.14.orig/Makefile quodlibet-0.14/Makefile
---- quodlibet-0.14.orig/Makefile	2005-10-07 22:48:20.000000000 +0200
-+++ quodlibet-0.14/Makefile	2005-10-23 22:06:44.000000000 +0200
-@@ -12,21 +12,21 @@
+diff -urN quodlibet-0.15.orig/Makefile quodlibet-0.15/Makefile
+--- quodlibet-0.15.orig/Makefile	2005-11-14 08:37:22.013072992 +0100
++++ quodlibet-0.15/Makefile	2005-11-14 09:04:02.057829216 +0100
+@@ -12,7 +12,7 @@
  make-install-dirs:
  	mkdir -p $(DESTDIR)$(PREFIX)/share/man/man1
  	mkdir -p $(DESTDIR)$(PREFIX)/bin
 -	mkdir -p $(DESTDIR)$(PREFIX)/$(TO)
 +	mkdir -p $(DESTDIR)$(LIBDIR)/quodlibet
  
+ # Failure to build POT/MO files is non-fatal in case there is a clock
+ # skew on the user's system and they don't have intltool/gettext installed;
+@@ -21,17 +21,17 @@
+ # installing the SVN version will have intltool and so it will build fine.
  install: make-install-dirs install-exfalso install-quodlibet
  	./quickzip.py quodlibet.zip $(MODULES)
 -	install -m 644 quodlibet.zip ql-*.png $(DESTDIR)$(PREFIX)/$(TO)
 -	-for E in $(EXTENSIONS); do (test -e $$E && install -m 755 $$E $(DESTDIR)$(PREFIX)/$(TO)); done
 +	install -m 644 quodlibet.zip ql-*.png $(DESTDIR)$(LIBDIR)/quodlibet
 +	-for E in $(EXTENSIONS); do (test -e $$E && install -m 755 $$E $(DESTDIR)$(LIBDIR)/quodlibet); done
- 	cd po && make install-po DESTDIR=$(DESTDIR)
+ 	-cd po && make install-po DESTDIR=$(DESTDIR)
  
  install-%: make-install-dirs
 -	install -m 755 $*.py $(DESTDIR)$(PREFIX)/$(TO)

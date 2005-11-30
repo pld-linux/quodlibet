@@ -1,4 +1,7 @@
 #
+# TODO
+# - won't play without gstreamer-audio-effects
+#
 # Conditional build:
 %bcond_without	home_etc	# don't use home_etc
 #

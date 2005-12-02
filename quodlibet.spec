@@ -1,7 +1,4 @@
 #
-# TODO
-# - won't play without gstreamer-audio-effects
-#
 # Conditional build:
 %bcond_without	home_etc	# don't use home_etc
 #
@@ -24,6 +21,7 @@ BuildRequires:	python-devel
 BuildRequires:	python-pygtk-devel
 %pyrequires_eq	python-modules
 Requires:	gstreamer-GConf
+Requires:	gstreamer-audio-effects
 Requires:	gtk+2 >= 2:2.6.0
 Requires:	python-gnome-gconf
 Requires:	python-gstreamer >= 0.8.2

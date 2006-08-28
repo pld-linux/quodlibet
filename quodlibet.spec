@@ -23,10 +23,11 @@ BuildRequires:	python-pygtk-devel
 Requires:	gstreamer-GConf
 Requires:	gstreamer-audio-effects-base
 Requires:	gtk+2 >= 2:2.6.0
-Requires:	python-ctypes
 Requires:	python-gnome-gconf
 Requires:	python-gstreamer >= 0.10.2-2
 Requires:	python-mutagen >= 1.5
+# for python-ctypes
+Requires:	python-modules >= 1:2.5
 Requires:	python-pygtk-gtk >= 2:2.6.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 

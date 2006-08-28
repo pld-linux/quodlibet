@@ -1,4 +1,6 @@
 #
+# TODO: python 2.5 (s/sre/rei/ f.e.)
+#
 # Conditional build:
 %bcond_without	home_etc	# don't use home_etc
 #
@@ -83,9 +85,9 @@ rm -rf $RPM_BUILD_ROOT
 %banner %{name} -e << EOF
 Remember to install appropriate python modules for files
 you want to play:
-- python-mad and gstreamer-mad (for MP3s)
-- python-pyvorbis and gstreamer-vorbis (for Ogg Vorbis)
-- python-pymusepack and gstreamer-musepack (for MPCs)
+- gstreamer-mad (for MP3s)
+- gstreamer-vorbis (for Ogg Vorbis)
+- gstreamer-musepack (for MPCs)
 and audio output:
 - gstreamer-audiosink-(alsa|oss|esd) (for ALSA, OSS or ESD output)
 EOF

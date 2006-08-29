@@ -1,5 +1,7 @@
 #
-# TODO: python 2.5 (s/sre/rei/ f.e.)
+# TODO:
+# - python 2.5 (s/sre/rei/ f.e.)
+# - trayicon
 #
 # Conditional build:
 %bcond_without	home_etc	# don't use home_etc

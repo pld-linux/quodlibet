@@ -1,7 +1,4 @@
 #
-# TODO:
-# - python 2.5 (s/sre/rei/ f.e.)
-#
 # Conditional build:
 %bcond_without	home_etc	# don't use home_etc
 #
@@ -16,6 +13,7 @@ Source0:	http://www.sacredchao.net/~piman/software/%{name}-%{version}.tar.gz
 # Source0-md5:	8b9d4f4dc0850b48cfe9b4b390722ef4
 Patch0:		%{name}-home_etc.patch
 Patch1:		%{name}-Makefile.patch
+Patch2:		%{name}-deprecated.patch
 URL:		http://www.sacredchao.net/quodlibet/wiki
 BuildRequires:	gtk+2-devel >= 2:2.6.0
 BuildRequires:	intltool
@@ -64,6 +62,7 @@ python-pyao, python-mad, python-pyid3lib.
 %setup -q
 %{?with_home_etc:%patch0 -p1}
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__make} extensions

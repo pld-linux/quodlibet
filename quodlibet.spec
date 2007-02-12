@@ -3,7 +3,7 @@
 %bcond_without	home_etc	# don't use home_etc
 #
 Summary:	Quod Libet - GTK+-based audio player
-Summary(pl.UTF-8):   Quod Libet - odtwarzacz dźwięku oparty na GTK+
+Summary(pl.UTF-8):	Quod Libet - odtwarzacz dźwięku oparty na GTK+
 Name:		quodlibet
 Version:	0.24
 Release:	2

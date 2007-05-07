@@ -1,12 +1,11 @@
-diff -urN quodlibet-0.24.orig/Makefile quodlibet-0.24/Makefile
---- quodlibet-0.24.orig/Makefile	2006-10-05 15:03:59.000000000 +0200
-+++ quodlibet-0.24/Makefile	2006-12-07 21:03:56.838220468 +0100
+--- quodlibet-1.0/Makefile.wiget	2007-04-16 04:45:47.000000000 +0200
++++ quodlibet-1.0/Makefile	2007-05-07 18:32:26.000000000 +0200
 @@ -10,15 +10,15 @@
  all:
  	@/bin/echo -n "Checking for Python... "
  	@which python || ( echo "Not found." && /bin/false )
 -	@./check.py $(DESTDIR)$(PREFIX)/$(TO)
-+	@./check.py $(DESTDIR)$(LIBDIR)/quodlibet
++	@./check.py $(DESTDIR)$(LIBDIR}/quodlibet
  
  make-install-dirs:
  	mkdir -p $(DESTDIR)$(PREFIX)/share/man/man1
@@ -15,12 +14,12 @@ diff -urN quodlibet-0.24.orig/Makefile quodlibet-0.24/Makefile
 +	mkdir -p $(DESTDIR)$(LIBDIR)/quodlibet
  
  install: make-install-dirs install-dirs install-programs
--	install -m 644 $(MODULES) audio-*.png media-*.png device-*.png $(DESTDIR)$(PREFIX)/$(TO)
-+	install -m 644 $(MODULES) audio-*.png media-*.png device-*.png $(DESTDIR)$(LIBDIR)/quodlibet
- 	for E in $(EXTENSIONS); do (test -e $$E && install -m 755 -D $$E $(DESTDIR)$(PREFIX)/$(TODEP)/$$E); done
+-	install -m 644 $(MODULES) missing-cover.svg audio-*.png media-*.png device-*.png $(DESTDIR)$(PREFIX)/$(TO)
++	install -m 644 $(MODULES) missing-cover.svg audio-*.png media-*.png device-*.png $(DESTDIR)$(LIBDIR)/quodlibet
  	cd po && make install-po DESTDIR=$(DESTDIR)
  
-@@ -27,16 +27,16 @@
+ 	for E in $(EXTENSIONS); do \
+@@ -32,16 +32,16 @@
  install-programs: $(addprefix app-install-, $(PROGRAMS))
  
  dir-install-%: make-install-dirs

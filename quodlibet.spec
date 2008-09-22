@@ -64,12 +64,13 @@ python-pyao, python-mad, python-pyid3lib.
 
 %build
 CFLAGS="%{rpmcflags}"; export CFLAGS
-python setup.py build
+%{__python} setup.py build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-python setup.py install \
-	--prefix=$RPM_BUILD_ROOT/%{_prefix} \
+
+%{__python} setup.py install \
+	--prefix=$RPM_BUILD_ROOT%{_prefix} \
 	--optimize=2
 
 %find_lang %{name}

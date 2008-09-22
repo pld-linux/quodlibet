@@ -5,16 +5,15 @@
 Summary:	Quod Libet - GTK+-based audio player
 Summary(pl.UTF-8):	Quod Libet - odtwarzacz dźwięku oparty na GTK+
 Name:		quodlibet
-Version:	1.0
-Release:	1
+Version:	2.0
+Release:	0.1
 License:	GPL v2
 Group:		X11/Applications/Multimedia
-Source0:	http://www.sacredchao.net/~piman/software/%{name}-%{version}.tar.gz
-# Source0-md5:	5c925b754bd8505a7a66f2ffcc5b5fe4
+Source0:	http://quodlibet.googlecode.com/files/quodlibet-%{version}.tar.gz
+# Source0-md5:	4ec9703b3ef7ecf5c6ecf1b8ac7773f4
 Patch0:		%{name}-home_etc.patch
-Patch1:		%{name}-Makefile.patch
 Patch2:		%{name}-paned.patch
-URL:		http://www.sacredchao.net/quodlibet/wiki
+URL:		http://code.google.com/p/quodlibet/
 BuildRequires:	gtk+2-devel >= 2:2.6.0
 BuildRequires:	intltool
 BuildRequires:	pkgconfig
@@ -30,7 +29,7 @@ Requires:	python-gstreamer >= 0.10.2-2
 Requires:	python-mutagen >= 1.11
 # for python-ctypes
 Requires:	python-modules >= 1:2.5
-Requires:	python-pygtk-gtk >= 2:2.6.0
+Requires:	python-pygtk-gtk >= 2:2.10.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -62,22 +61,16 @@ python-pyao, python-mad, python-pyid3lib.
 %prep
 %setup -q
 %{?with_home_etc:%patch0 -p1}
-%patch1 -p1
-%patch2 -p0
-sed -i -e 's#lib/quodlibet#%{_lib}/%{name}#g' quodlibet.py
 
 %build
-%{__make} extensions
-%{__make} po-data
+CFLAGS="%{rpmcflags}"; export CFLAGS
+python setup.py build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
-%{__make} install \
-	TODEP="%{_lib}/%{name}" \
-	LIBDIR=%{_libdir} \
-	PREFIX=%{_prefix} \
-	DESTDIR=$RPM_BUILD_ROOT
+python setup.py install \
+	--prefix=$RPM_BUILD_ROOT/%{_prefix} \
+	--optimize=2
 
 %find_lang %{name}
 

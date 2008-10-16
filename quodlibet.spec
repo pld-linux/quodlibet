@@ -5,15 +5,17 @@
 Summary:	Quod Libet - GTK+-based audio player
 Summary(pl.UTF-8):	Quod Libet - odtwarzacz dźwięku oparty na GTK+
 Name:		quodlibet
-Version:	2.0
-Release:	0.2
+# 2.0 on DEVEL, finish it there first
+Version:	1.0
+Release:	2
 License:	GPL v2
 Group:		X11/Applications/Multimedia
-Source0:	http://quodlibet.googlecode.com/files/quodlibet-%{version}.tar.gz
-# Source0-md5:	4ec9703b3ef7ecf5c6ecf1b8ac7773f4
+Source0:	http://www.sacredchao.net/~piman/software/%{name}-%{version}.tar.gz
+# Source0-md5:	5c925b754bd8505a7a66f2ffcc5b5fe4
 Patch0:		%{name}-home_etc.patch
+Patch1:		%{name}-Makefile.patch
 Patch2:		%{name}-paned.patch
-URL:		http://code.google.com/p/quodlibet/
+URL:		http://www.sacredchao.net/quodlibet/wiki
 BuildRequires:	gtk+2-devel >= 2:2.6.0
 BuildRequires:	intltool
 BuildRequires:	pkgconfig
@@ -29,7 +31,7 @@ Requires:	python-gstreamer >= 0.10.2-2
 Requires:	python-mutagen >= 1.11
 # for python-ctypes
 Requires:	python-modules >= 1:2.5
-Requires:	python-pygtk-gtk >= 2:2.10.0
+Requires:	python-pygtk-gtk >= 2:2.6.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -61,25 +63,24 @@ python-pyao, python-mad, python-pyid3lib.
 %prep
 %setup -q
 %{?with_home_etc:%patch0 -p1}
-mv po/gl_ES.po po/gl.po
+%patch1 -p1
+%patch2 -p0
+sed -i -e 's#lib/quodlibet#%{_lib}/%{name}#g' quodlibet.py
 
 %build
-CFLAGS="%{rpmcflags}"; export CFLAGS
-%{__python} setup.py build
+%{__make} extensions
+%{__make} po-data
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__python} setup.py install \
-	--install-purelib=%{py_sitedir} \
-	--prefix=$RPM_BUILD_ROOT%{_prefix} \
-	--install-scripts=%{_bindir} \
-	--root=$RPM_BUILD_ROOT \
-	--optimize=2
+%{__make} install \
+	TODEP="%{_lib}/%{name}" \
+	LIBDIR=%{_libdir} \
+	PREFIX=%{_prefix} \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %find_lang %{name}
-
-%py_postclean
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -99,32 +100,20 @@ EOF
 %defattr(644,root,root,755)
 %doc NEWS README
 %attr(755,root,root) %{_bindir}/*
-%dir %{py_sitedir}/quodlibet
-%dir %{py_sitedir}/quodlibet/browsers
-%dir %{py_sitedir}/quodlibet/debug
-%dir %{py_sitedir}/quodlibet/devices
-%dir %{py_sitedir}/quodlibet/formats
-%dir %{py_sitedir}/quodlibet/library
-%dir %{py_sitedir}/quodlibet/parse
-%dir %{py_sitedir}/quodlibet/player
-%dir %{py_sitedir}/quodlibet/plugins
-%dir %{py_sitedir}/quodlibet/qltk
-%dir %{py_sitedir}/quodlibet/util
-%dir %{py_sitedir}/quodlibet/images
-%{py_sitedir}/quodlibet/*.py[co]
-%{py_sitedir}/quodlibet/browsers/*.py[co]
-%{py_sitedir}/quodlibet/debug/*.py[co]
-%{py_sitedir}/quodlibet/devices/*.py[co]
-%{py_sitedir}/quodlibet/formats/*.py[co]
-%{py_sitedir}/quodlibet/library/*.py[co]
-%{py_sitedir}/quodlibet/parse/*.py[co]
-%{py_sitedir}/quodlibet/player/*.py[co]
-%{py_sitedir}/quodlibet/plugins/*.py[co]
-%{py_sitedir}/quodlibet/qltk/*.py[co]
-%{py_sitedir}/quodlibet/util/*.py[co]
-%{py_sitedir}/quodlibet/images/*.svg
-%{py_sitedir}/quodlibet/images/*.png
-%attr(755,root,root) %{py_sitedir}/quodlibet/*.so
-%{py_sitedir}/*.egg-info
+%dir %{_libdir}/%{name}
+%attr(755,root,root) %{_libdir}/%{name}/*.py
+%dir %attr(755,root,root) %{_libdir}/%{name}/library
+%attr(755,root,root) %{_libdir}/%{name}/library/*.py
+%attr(755,root,root) %{_libdir}/%{name}/*.so
+%{_libdir}/%{name}/browsers
+%{_libdir}/%{name}/devices
+%{_libdir}/%{name}/formats
+%{_libdir}/%{name}/parse
+%{_libdir}/%{name}/plugins
+%{_libdir}/%{name}/qltk
+%{_libdir}/%{name}/util
+%{_libdir}/%{name}/*.png
+%{_libdir}/%{name}/*.svg
 %{_desktopdir}/*.desktop
+%{_pixmapsdir}/*
 %{_mandir}/man1/*

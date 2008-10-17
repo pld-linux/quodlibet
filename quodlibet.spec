@@ -20,8 +20,8 @@ BuildRequires:	gtk+2-devel >= 2:2.6.0
 BuildRequires:	intltool
 BuildRequires:	pkgconfig
 BuildRequires:	python-devel
-BuildRequires:	python-pygtk-devel
-BuildRequires:  rpm-pythonprov
+BuildRequires:	python-pygtk-devel >= 2:2.6.0
+BuildRequires:	rpm-pythonprov
 %pyrequires_eq	python-modules
 Requires:	gstreamer-GConf
 Requires:	gstreamer-audio-effects-base
@@ -31,7 +31,7 @@ Requires:	python-gstreamer >= 0.10.2-2
 Requires:	python-mutagen >= 1.11
 # for python-ctypes
 Requires:	python-modules >= 1:2.5
-Requires:       python-pycairo
+Requires:	python-pycairo
 Requires:	python-pygtk-gtk >= 2:2.6.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 

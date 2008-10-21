@@ -19,7 +19,8 @@ URL:		http://www.sacredchao.net/quodlibet/wiki
 BuildRequires:	gtk+2-devel >= 2:2.6.0
 BuildRequires:	intltool
 BuildRequires:	pkgconfig
-BuildRequires:	python-devel
+# 2.5 needed for ctypes
+BuildRequires:	python-devel >= 1:2.5
 BuildRequires:	python-pygtk-devel >= 2:2.6.0
 BuildRequires:	rpm-pythonprov
 %pyrequires_eq	python-modules
@@ -29,8 +30,6 @@ Requires:	gtk+2 >= 2:2.6.0
 Requires:	python-gnome-gconf
 Requires:	python-gstreamer >= 0.10.2-2
 Requires:	python-mutagen >= 1.11
-# for python-ctypes
-Requires:	python-modules >= 1:2.5
 Requires:	python-pycairo
 Requires:	python-pygtk-gtk >= 2:2.6.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)

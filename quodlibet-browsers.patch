@@ -1,0 +1,42 @@
+--- quodlibet-2.0/quodlibet/browsers/__init__.py.wiget	2008-11-02 18:55:32.000000000 +0100
++++ quodlibet-2.0/quodlibet/browsers/__init__.py	2008-11-02 19:10:21.000000000 +0100
+@@ -24,12 +24,17 @@ base = dirname(__file__)
+ self = basename(base)
+ parent = basename(dirname(base))
+ modules = [f[:-3] for f in glob(join(base, "[!_]*.py"))]
++modules.extend([f[:-4] for f in glob(join(base, "[!_]*.py[co]"))])
++modules = set(modules)
+ modules = ["%s.%s.%s" % (parent, self, basename(m)) for m in modules]
+ 
+ if isdir(BROWSERS):
+     sys.path.insert(0, BROWSERS)
+     modules.extend([basename(f)[:-3] for f in
+                     glob(join(BROWSERS, "[!_]*.py"))])
++    modules.extend([basename(f)[:-4] for f in
++                    glob(join(BROWSERS, "[!_]*.py[co]"))])
++    modules = set(modules)
+ 
+ # Browsers are declared and stored as a magic 4-tuple. The first element is
+ # the sort order (built-in browsers are numbered with integers). The second
+--- quodlibet-2.0/quodlibet/formats/__init__.py.wiget	2008-11-02 19:17:18.000000000 +0100
++++ quodlibet-2.0/quodlibet/formats/__init__.py	2008-11-02 19:18:24.000000000 +0100
+@@ -16,6 +16,8 @@ base = dirname(__file__)
+ self = basename(base)
+ parent = basename(dirname(base))
+ modules = [f[:-3] for f in glob(join(base, "[!_]*.py"))]
++modules.extend([f[:-4] for f in glob(join(base, "[!_]*.py[co]"))])
++modules = set(modules)
+ modules = ["%s.%s.%s" % (parent, self, basename(m)) for m in modules]
+ 
+ _infos = {}
+--- quodlibet-2.0/quodlibet/devices/__init__.py.wiget2	2008-11-02 19:24:57.000000000 +0100
++++ quodlibet-2.0/quodlibet/devices/__init__.py	2008-11-02 19:25:44.000000000 +0100
+@@ -25,6 +25,8 @@ base = dirname(__file__)
+ self = basename(base)
+ parent = basename(dirname(base))
+ modules = [f[:-3] for f in glob(join(base, "[!_]*.py"))]
++modules.extend([f[:-3] for f in glob(join(base, "[!_]*.py"))])
++modules = set(modules)
+ modules = ["%s.%s.%s" % (parent, self, basename(m)) for m in modules]
+ 
+ devices = []

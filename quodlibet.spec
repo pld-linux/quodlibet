@@ -6,15 +6,14 @@ Summary:	Quod Libet - GTK+-based audio player
 Summary(pl.UTF-8):	Quod Libet - odtwarzacz dźwięku oparty na GTK+
 Name:		quodlibet
 # 2.0 on DEVEL, finish it there first
-Version:	1.0
-Release:	2
+Version:	2.1
+Release:	0.1
 License:	GPL v2
 Group:		X11/Applications/Multimedia
-Source0:	http://www.sacredchao.net/~piman/software/%{name}-%{version}.tar.gz
-# Source0-md5:	5c925b754bd8505a7a66f2ffcc5b5fe4
+Source0:	http://quodlibet.googlecode.com/files/%{name}-%{version}.tar.gz
+# Source0-md5:	abd362699a7118c7720c13fbda0c8c9e
 Patch0:		%{name}-home_etc.patch
-Patch1:		%{name}-Makefile.patch
-Patch2:		%{name}-paned.patch
+Patch1:		%{name}-nopy.patch
 URL:		http://www.sacredchao.net/quodlibet/wiki
 BuildRequires:	gtk+2-devel >= 2:2.6.0
 BuildRequires:	intltool
@@ -32,6 +31,10 @@ Requires:	python-gstreamer >= 0.10.2-2
 Requires:	python-mutagen >= 1.11
 Requires:	python-pycairo
 Requires:	python-pygtk-gtk >= 2:2.6.0
+Suggests:	gstreamer-audiosink
+Suggests:	gstreamer-mad
+Suggests:	gstreamer-vorbis
+Suggests:	gstreamer-musepack
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -64,56 +67,54 @@ python-pyao, python-mad, python-pyid3lib.
 %setup -q
 %{?with_home_etc:%patch0 -p1}
 %patch1 -p1
-%patch2 -p0
-sed -i -e 's#lib/quodlibet#%{_lib}/%{name}#g' quodlibet.py
 
 %build
-%{__make} extensions
-%{__make} po-data
+CFLAGS="%{rpmcflags}"; export CFLAGS
+%{__python} ./setup.py build
 
 %install
 rm -rf $RPM_BUILD_ROOT
+%{__python} -- setup.py install \
+	--root=$RPM_BUILD_ROOT \
+	--install-lib=%{py_sitedir} \
+	--optimize=2
 
-%{__make} install \
-	TODEP="%{_lib}/%{name}" \
-	LIBDIR=%{_libdir} \
-	PREFIX=%{_prefix} \
-	DESTDIR=$RPM_BUILD_ROOT
+%py_postclean
 
 %find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post
-%banner %{name} -e << EOF
-Remember to install appropriate python modules for files
-you want to play:
-- gstreamer-mad (for MP3s)
-- gstreamer-vorbis (for Ogg Vorbis)
-- gstreamer-musepack (for MPCs)
-and audio output:
-- gstreamer-audiosink-(alsa|oss|esd) (for ALSA, OSS or ESD output)
-EOF
-
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc NEWS README
 %attr(755,root,root) %{_bindir}/*
-%dir %{_libdir}/%{name}
-%attr(755,root,root) %{_libdir}/%{name}/*.py
-%dir %attr(755,root,root) %{_libdir}/%{name}/library
-%attr(755,root,root) %{_libdir}/%{name}/library/*.py
-%attr(755,root,root) %{_libdir}/%{name}/*.so
-%{_libdir}/%{name}/browsers
-%{_libdir}/%{name}/devices
-%{_libdir}/%{name}/formats
-%{_libdir}/%{name}/parse
-%{_libdir}/%{name}/plugins
-%{_libdir}/%{name}/qltk
-%{_libdir}/%{name}/util
-%{_libdir}/%{name}/*.png
-%{_libdir}/%{name}/*.svg
+%{py_sitedir}/*.egg-info
+%dir %{py_sitedir}/%{name}
+%{py_sitedir}/%{name}/*.py[co]
+%{py_sitedir}/%{name}/browsers
+%dir %{py_sitedir}/%{name}/debug
+%{py_sitedir}/%{name}/debug/*.py[co]
+%{py_sitedir}/%{name}/devices
+%dir %{py_sitedir}/%{name}/formats
+%{py_sitedir}/%{name}/formats/*.py[co]
+%dir %{py_sitedir}/%{name}/images
+%{py_sitedir}/%{name}/images/*.png
+%{py_sitedir}/%{name}/images/*.svg
+%dir %{py_sitedir}/%{name}/library
+%{py_sitedir}/%{name}/library/*.py[co]
+%attr(755,root,root) %{py_sitedir}/%{name}/*.so
+%dir %{py_sitedir}/%{name}/parse
+%{py_sitedir}/%{name}/parse/*.py[co]
+%dir %{py_sitedir}/%{name}/player
+%{py_sitedir}/%{name}/player/*.py[co]
+%dir %{py_sitedir}/%{name}/plugins
+%{py_sitedir}/%{name}/plugins/*.py[co]
+%dir %{py_sitedir}/%{name}/qltk
+%{py_sitedir}/%{name}/qltk/*.py[co]
+%dir %{py_sitedir}/%{name}/util
+%{py_sitedir}/%{name}/util/*.py[co]
 %{_desktopdir}/*.desktop
-%{_pixmapsdir}/*
+#%{_pixmapsdir}/*
 %{_mandir}/man1/*

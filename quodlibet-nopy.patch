@@ -1,0 +1,69 @@
+--- quodlibet-2.1/quodlibet/browsers/__init__.py.wiget	2009-07-04 06:40:37.000000000 +0200
++++ quodlibet-2.1/quodlibet/browsers/__init__.py	2009-09-27 16:34:01.000000000 +0200
+@@ -23,13 +23,17 @@ BROWSERS = os.path.join(const.USERDIR, "
+ base = dirname(__file__)
+ self = basename(base)
+ parent = basename(dirname(base))
+-modules = [f[:-3] for f in glob(join(base, "[!_]*.py"))]
+-modules = ["%s.%s.%s" % (parent, self, basename(m)) for m in modules]
++exts = ('.py', '.pyc', '.pyo')
++modules = set()
++for ext in exts:
++  modules = modules | set([f[:-len(ext)] for f in glob(join(base, "[!_]*" + ext))])
++modules = set(["%s.%s.%s" % (parent, self, basename(m)) for m in modules])
+ 
+ if isdir(BROWSERS):
+     sys.path.insert(0, BROWSERS)
+-    modules.extend([basename(f)[:-3] for f in
+-                    glob(join(BROWSERS, "[!_]*.py"))])
++    for ext in exts:
++        modules = modules | set([basename(f)[:-len(ext)] for f in
++                    glob(join(BROWSERS, "[!_]*"+ ext))])
+ 
+ # Browsers are declared and stored as a magic 4-tuple. The first element is
+ # the sort order (built-in browsers are numbered with integers). The second
+--- quodlibet-2.1/quodlibet/devices/__init__.py.wiget	2009-07-04 06:40:37.000000000 +0200
++++ quodlibet-2.1/quodlibet/devices/__init__.py	2009-09-27 16:34:01.000000000 +0200
+@@ -24,8 +24,11 @@ from quodlibet import const
+ base = dirname(__file__)
+ self = basename(base)
+ parent = basename(dirname(base))
+-modules = [f[:-3] for f in glob(join(base, "[!_]*.py"))]
+-modules = ["%s.%s.%s" % (parent, self, basename(m)) for m in modules]
++exts = ('.py', '.pyo', '.pyc')
++modules = set()
++for ext in exts:
++    modules = modules | set([f[:-len(ext)] for f in glob(join(base, "[!_]*" + ext))])
++modules = set(["%s.%s.%s" % (parent, self, basename(m)) for m in modules])
+ 
+ devices = []
+ for _name in modules:
+--- quodlibet-2.1/quodlibet/formats/__init__.py.wiget	2009-07-04 06:40:37.000000000 +0200
++++ quodlibet-2.1/quodlibet/formats/__init__.py	2009-09-27 16:39:12.000000000 +0200
+@@ -15,7 +15,10 @@ from os.path import dirname, basename, j
+ base = dirname(__file__)
+ self = basename(base)
+ parent = basename(dirname(base))
+-modules = [f[:-3] for f in glob(join(base, "[!_]*.py"))]
++modules = set()
++exts = ('.py', '.pyo', '.pyc')
++for ext in exts:
++    modules = modules | set([f[:-len(ext)] for f in glob(join(base, "[!_]*" + ext))])
+ modules = ["%s.%s.%s" % (parent, self, basename(m)) for m in modules]
+ 
+ _infos = {}
+--- quodlibet-2.1/quodlibet/plugins/__init__.py.wiget	2009-07-04 06:40:37.000000000 +0200
++++ quodlibet-2.1/quodlibet/plugins/__init__.py	2009-09-27 16:34:01.000000000 +0200
+@@ -130,7 +130,11 @@ class Manager(object):
+         """Check directories for new or changed plugins."""
+ 
+         for scandir in self.scan:
+-            try: names = glob.glob(os.path.join(scandir, "[!_]*.py"))
++            try: 
++              exts = ('.py', '.pyo', '.pyc')
++              names = set()
++              for ext in exts:
++                  names = names | set(glob.glob(os.path.join(scandir, "[!_]*" + ext)))
+             except OSError: continue
+             for pathname in names:
+                 name = os.path.basename(pathname)

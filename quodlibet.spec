@@ -5,12 +5,12 @@
 Summary:	Quod Libet - GTK+-based audio player
 Summary(pl.UTF-8):	Quod Libet - odtwarzacz dźwięku oparty na GTK+
 Name:		quodlibet
-Version:	2.1
-Release:	2
+Version:	2.2.1
+Release:	1
 License:	GPL v2
 Group:		X11/Applications/Multimedia
 Source0:	http://quodlibet.googlecode.com/files/%{name}-%{version}.tar.gz
-# Source0-md5:	abd362699a7118c7720c13fbda0c8c9e
+# Source0-md5:	8e2bf197afbfca98975d0f2103629d2d
 Patch0:		%{name}-home_etc.patch
 Patch1:		%{name}-nopy.patch
 URL:		http://code.google.com/p/quodlibet/

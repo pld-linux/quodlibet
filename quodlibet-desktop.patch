@@ -1,0 +1,8 @@
+--- quodlibet-2.2.1/exfalso.desktop.in~	2010-03-27 09:26:22.000000000 +0100
++++ quodlibet-2.2.1/exfalso.desktop.in	2010-05-12 14:37:14.295569634 +0200
+@@ -6,4 +6,4 @@
+ Terminal=false
+ Type=Application
+ Icon=exfalso.png
+-Categories=AudioVideo;Audio;GTK
++Categories=AudioVideo;Audio;AudioVideoEditing;GTK

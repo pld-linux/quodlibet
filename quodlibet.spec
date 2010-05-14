@@ -15,6 +15,7 @@ Patch0:		%{name}-home_etc.patch
 Patch1:		%{name}-nopy.patch
 Patch2:		%{name}-desktop.patch
 URL:		http://code.google.com/p/quodlibet/
+BuildRequires:	gettext-devel
 BuildRequires:	gtk+2-devel >= 2:2.6.0
 BuildRequires:	intltool
 BuildRequires:	pkgconfig
@@ -33,8 +34,8 @@ Requires:	python-pycairo
 Requires:	python-pygtk-gtk >= 2:2.6.0
 Suggests:	gstreamer-audiosink
 Suggests:	gstreamer-mad
-Suggests:	gstreamer-vorbis
 Suggests:	gstreamer-musepack
+Suggests:	gstreamer-vorbis
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description

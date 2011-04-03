@@ -1,15 +1,14 @@
---- quodlibet-2.1/quodlibet/const.py.wiget	2009-09-27 14:03:28.000000000 +0200
-+++ quodlibet-2.1/quodlibet/const.py	2009-09-27 14:08:22.000000000 +0200
-@@ -8,7 +8,11 @@ VERSION_TUPLE = (2, 1)
- VERSION = ".".join(map(str, VERSION_TUPLE))
+--- quodlibet-2.3/quodlibet/const.py.old	2011-04-01 00:44:00.000000000 +0200
++++ quodlibet-2.3/quodlibet/const.py	2011-04-03 18:38:47.397249347 +0200
+@@ -24,7 +24,10 @@
+         USERDIR = shell.SHGetFolderPath(0, shellcon.CSIDL_APPDATA, 0, 0)
+         USERDIR = os.path.join(USERDIR, "Quod Libet")
+     else:
+-        USERDIR = os.path.join(HOME, ".quodlibet")
++        if 'HOME_ETC' in os.environ:
++            USERDIR = os.path.join(os.environ['HOME_ETC'], ".quodlibet")
++        else:
++            USERDIR = os.path.join(HOME, ".quodlibet")
  
- HOME    = os.path.expanduser("~")
--USERDIR = os.path.join(HOME, ".quodlibet")
-+HOME_ETC = os.getenv("HOME_ETC")
-+if HOME_ETC:
-+    USERDIR = os.path.join(HOME_ETC, ".quodlibet")
-+else:
-+    USERDIR = os.path.join(HOME, ".quodlibet")
  CONTROL = os.path.join(USERDIR, "control")
  CONFIG  = os.path.join(USERDIR, "config")
- CURRENT = os.path.join(USERDIR, "current")

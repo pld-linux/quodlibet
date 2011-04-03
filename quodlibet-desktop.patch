@@ -3,6 +3,6 @@
 @@ -6,4 +6,4 @@
  Terminal=false
  Type=Application
- Icon=exfalso.png
--Categories=AudioVideo;Audio;GTK
+ Icon=exfalso
+-Categories=AudioVideo;Audio;GTK;
 +Categories=AudioVideo;Audio;AudioVideoEditing;GTK

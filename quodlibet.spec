@@ -5,33 +5,33 @@
 Summary:	Quod Libet - GTK+-based audio player
 Summary(pl.UTF-8):	Quod Libet - odtwarzacz dźwięku oparty na GTK+
 Name:		quodlibet
-Version:	2.2.1
-Release:	6
+Version:	2.3
+Release:	1
 License:	GPL v2
 Group:		X11/Applications/Multimedia
 Source0:	http://quodlibet.googlecode.com/files/%{name}-%{version}.tar.gz
-# Source0-md5:	8e2bf197afbfca98975d0f2103629d2d
+# Source0-md5:	e6bdb97decba40c33bd57e039d82c217
 Patch0:		%{name}-home_etc.patch
 Patch1:		%{name}-nopy.patch
 Patch2:		%{name}-desktop.patch
 URL:		http://code.google.com/p/quodlibet/
 BuildRequires:	gettext-devel
-BuildRequires:	gtk+2-devel >= 2:2.6.0
+BuildRequires:	gtk+2-devel >= 2:2.12.0
 BuildRequires:	intltool
 BuildRequires:	pkgconfig
 # 2.5 needed for ctypes
 BuildRequires:	python-devel >= 1:2.5
-BuildRequires:	python-pygtk-devel >= 2:2.6.0
+BuildRequires:	python-pygtk-devel >= 2:2.12.0
 BuildRequires:	rpm-pythonprov
 %pyrequires_eq	python-modules
 Requires:	gstreamer-GConf
 Requires:	gstreamer-audio-effects-base
-Requires:	gtk+2 >= 2:2.6.0
+Requires:	gtk+2 >= 2:2.12.0
 Requires:	python-gnome-gconf
 Requires:	python-gstreamer >= 0.10.2-2
 Requires:	python-mutagen >= 1.11
 Requires:	python-pycairo
-Requires:	python-pygtk-gtk >= 2:2.6.0
+Requires:	python-pygtk-gtk >= 2:2.12.0
 Suggests:	gstreamer-audiosink
 Suggests:	gstreamer-mad
 Suggests:	gstreamer-musepack
@@ -69,7 +69,7 @@ python-pyao, python-mad, python-pyid3lib.
 %{?with_home_etc:%patch0 -p1}
 %patch1 -p1
 %patch2 -p1
-rm -f po/gl_ES.po
+%{__rm} po/gl_ES.po
 
 %build
 CFLAGS="%{rpmcflags}"; export CFLAGS

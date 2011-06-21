@@ -6,7 +6,7 @@ Summary:	Quod Libet - GTK+-based audio player
 Summary(pl.UTF-8):	Quod Libet - odtwarzacz dźwięku oparty na GTK+
 Name:		quodlibet
 Version:	2.3
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		X11/Applications/Multimedia
 Source0:	http://quodlibet.googlecode.com/files/%{name}-%{version}.tar.gz
@@ -36,6 +36,7 @@ Suggests:	gstreamer-audiosink
 Suggests:	gstreamer-mad
 Suggests:	gstreamer-musepack
 Suggests:	gstreamer-vorbis
+Suggests:	%{name}-plugins
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -77,7 +78,9 @@ CFLAGS="%{rpmcflags}"; export CFLAGS
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_pixmapsdir}
+install -d $RPM_BUILD_ROOT%{_pixmapsdir} \
+	$RPM_BUILD_ROOT%{py_sitedir}/%{name}/plugins/{editing,events,playorder,songsmenu}
+
 %{__python} -- setup.py install \
 	--root=$RPM_BUILD_ROOT \
 	--install-lib=%{py_sitedir} \
@@ -108,6 +111,12 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}/%{name}/images
 %{py_sitedir}/%{name}/images/*.png
 %{py_sitedir}/%{name}/images/*.svg
+%dir %{py_sitedir}/%{name}/images/hicolor
+%dir %{py_sitedir}/%{name}/images/hicolor/*x*
+%dir %{py_sitedir}/%{name}/images/hicolor/*x*/*
+%{py_sitedir}/%{name}/images/hicolor/icon-theme.cache
+%{py_sitedir}/%{name}/images/hicolor/index.theme
+%{py_sitedir}/%{name}/images/hicolor/*x*/*/*.png
 %dir %{py_sitedir}/%{name}/library
 %{py_sitedir}/%{name}/library/*.py[co]
 %attr(755,root,root) %{py_sitedir}/%{name}/*.so
@@ -117,6 +126,10 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/%{name}/player/*.py[co]
 %dir %{py_sitedir}/%{name}/plugins
 %{py_sitedir}/%{name}/plugins/*.py[co]
+%dir %{py_sitedir}/%{name}/plugins/editing
+%dir %{py_sitedir}/%{name}/plugins/events
+%dir %{py_sitedir}/%{name}/plugins/playorder
+%dir %{py_sitedir}/%{name}/plugins/songsmenu
 %dir %{py_sitedir}/%{name}/qltk
 %{py_sitedir}/%{name}/qltk/*.py[co]
 %dir %{py_sitedir}/%{name}/util

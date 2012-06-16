@@ -1,6 +1,7 @@
---- quodlibet-2.1/quodlibet/devices/__init__.py.wiget	2009-07-04 06:40:37.000000000 +0200
-+++ quodlibet-2.1/quodlibet/devices/__init__.py	2009-09-27 16:34:01.000000000 +0200
-@@ -24,8 +24,11 @@ from quodlibet import const
+diff -Nur quodlibet-2.4.orig/quodlibet/devices/__init__.py quodlibet-2.4/quodlibet/devices/__init__.py
+--- quodlibet-2.4.orig/quodlibet/devices/__init__.py	2012-03-18 15:19:05.000000000 +0000
++++ quodlibet-2.4/quodlibet/devices/__init__.py	2012-06-16 17:35:53.000000000 +0100
+@@ -31,8 +31,11 @@
  base = dirname(__file__)
  self = basename(base)
  parent = basename(dirname(base))
@@ -9,14 +10,33 @@
 +exts = ('.py', '.pyo', '.pyc')
 +modules = set()
 +for ext in exts:
-+    modules = modules | set([f[:-len(ext)] for f in glob(join(base, "[!_]*" + ext))])
-+modules = set(["%s.%s.%s" % (parent, self, basename(m)) for m in modules])
++    modules = modules | set(f[:-len(ext)] for f in glob(join(base, "[!_]*" + ext)))
++modules = set("%s.%s.%s" % (parent, self, basename(m)) for m in modules)
  
  devices = []
  for _name in modules:
---- quodlibet-2.1/quodlibet/plugins/__init__.py.wiget	2009-07-04 06:40:37.000000000 +0200
-+++ quodlibet-2.1/quodlibet/plugins/__init__.py	2009-09-27 16:34:01.000000000 +0200
-@@ -130,7 +130,11 @@ class Manager(object):
+diff -Nur quodlibet-2.4.orig/quodlibet/formats/__init__.py quodlibet-2.4/quodlibet/formats/__init__.py
+--- quodlibet-2.4.orig/quodlibet/formats/__init__.py	2012-03-18 15:19:05.000000000 +0000
++++ quodlibet-2.4/quodlibet/formats/__init__.py	2012-06-16 17:41:46.000000000 +0100
+@@ -18,8 +18,12 @@
+     # Windows needs to load .pyc files
+     glob_pattern = "[!_]*.py*"
+ else: glob_pattern = "[!_]*.py"
+-modules = [splitext(f)[0] for f in glob(join(base, glob_pattern))]
+-modules = ["%s.%s.%s" % (parent, self, basename(m)) for m in set(modules)]
++
++exts = ('.py', '.pyo', '.pyc')
++modules = set()
++for ext in exts:
++    modules = modules | set(f[:-len(ext)] for f in glob(join(base, "[!_]*" + ext)))
++modules = ["%s.%s.%s" % (parent, self, basename(m)) for m in modules]
+ 
+ _infos = {}
+ for i, name in enumerate(modules):
+diff -Nur quodlibet-2.4.orig/quodlibet/plugins/__init__.py quodlibet-2.4/quodlibet/plugins/__init__.py
+--- quodlibet-2.4.orig/quodlibet/plugins/__init__.py	2012-03-18 15:19:05.000000000 +0000
++++ quodlibet-2.4/quodlibet/plugins/__init__.py	2012-06-16 17:32:18.000000000 +0100
+@@ -140,7 +140,11 @@
          """Check directories for new or changed plugins."""
  
          for scandir in self.scan:

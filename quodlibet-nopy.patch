@@ -1,13 +1,41 @@
-diff -Nur quodlibet-2.4.orig/quodlibet/devices/__init__.py quodlibet-2.4/quodlibet/devices/__init__.py
---- quodlibet-2.4.orig/quodlibet/devices/__init__.py	2012-03-18 15:19:05.000000000 +0000
-+++ quodlibet-2.4/quodlibet/devices/__init__.py	2012-06-16 17:35:53.000000000 +0100
+diff -uNr quodlibet-2.4.orig/quodlibet/browsers/__init__.py quodlibet-2.4/quodlibet/browsers/__init__.py
+--- quodlibet-2.4.orig/quodlibet/browsers/__init__.py	2012-03-18 16:19:05.000000000 +0100
++++ quodlibet-2.4/quodlibet/browsers/__init__.py	2012-06-17 23:25:05.732553891 +0200
+@@ -21,17 +21,16 @@
+ base = dirname(__file__)
+ self = basename(base)
+ parent = basename(dirname(base))
+-if os.name == 'nt':
+-    # Windows needs to load .pyc files
+-    glob_pattern = "[!_]*.py*"
+-else: glob_pattern = "[!_]*.py"
+-modules = [splitext(f)[0] for f in glob(join(base, glob_pattern))]
+-modules = ["%s.%s.%s" % (parent, self, basename(m)) for m in modules]
++exts = (".py", ".pyo", ".pyc")
++modules = set()
++for ext in exts:
++    modules = modules | set(splitext(f)[0] for f in glob(join(base, "[!_]*" + ext)))
++modules = set("%s.%s.%s" % (parent, self, basename(m)) for m in modules)
+ 
+ if isdir(BROWSERS):
+     sys.path.insert(0, BROWSERS)
+-    modules.extend([splitext(basename(f))[0] for f in
+-                    glob(join(BROWSERS, "[!_]*.py*"))])
++    for ext in exts:
++        modules = modules | set(splitext(basename(f))[0] for f in glob(join(BROWSERS, "[!_]*" + ext)))
+ 
+ # Browsers are declared and stored as a magic 4-tuple. The first element is
+ # the sort order (built-in browsers are numbered with integers). The second
+diff -uNr quodlibet-2.4.orig/quodlibet/devices/__init__.py quodlibet-2.4/quodlibet/devices/__init__.py
+--- quodlibet-2.4.orig/quodlibet/devices/__init__.py	2012-03-18 16:19:05.000000000 +0100
++++ quodlibet-2.4/quodlibet/devices/__init__.py	2012-06-17 23:46:48.608828937 +0200
 @@ -31,8 +31,11 @@
  base = dirname(__file__)
  self = basename(base)
  parent = basename(dirname(base))
 -modules = [f[:-3] for f in glob(join(base, "[!_]*.py"))]
 -modules = ["%s.%s.%s" % (parent, self, basename(m)) for m in modules]
-+exts = ('.py', '.pyo', '.pyc')
++exts = (".py", ".pyo", ".pyc")
 +modules = set()
 +for ext in exts:
 +    modules = modules | set(f[:-len(ext)] for f in glob(join(base, "[!_]*" + ext)))
@@ -15,37 +43,40 @@ diff -Nur quodlibet-2.4.orig/quodlibet/devices/__init__.py quodlibet-2.4/quodlib
  
  devices = []
  for _name in modules:
-diff -Nur quodlibet-2.4.orig/quodlibet/formats/__init__.py quodlibet-2.4/quodlibet/formats/__init__.py
---- quodlibet-2.4.orig/quodlibet/formats/__init__.py	2012-03-18 15:19:05.000000000 +0000
-+++ quodlibet-2.4/quodlibet/formats/__init__.py	2012-06-16 17:41:46.000000000 +0100
-@@ -18,8 +18,12 @@
-     # Windows needs to load .pyc files
-     glob_pattern = "[!_]*.py*"
- else: glob_pattern = "[!_]*.py"
+diff -uNr quodlibet-2.4.orig/quodlibet/formats/__init__.py quodlibet-2.4/quodlibet/formats/__init__.py
+--- quodlibet-2.4.orig/quodlibet/formats/__init__.py	2012-03-18 16:19:05.000000000 +0100
++++ quodlibet-2.4/quodlibet/formats/__init__.py	2012-06-17 23:48:30.338277822 +0200
+@@ -14,12 +14,11 @@
+ base = dirname(__file__)
+ self = basename(base)
+ parent = basename(dirname(base))
+-if os.name == 'nt':
+-    # Windows needs to load .pyc files
+-    glob_pattern = "[!_]*.py*"
+-else: glob_pattern = "[!_]*.py"
 -modules = [splitext(f)[0] for f in glob(join(base, glob_pattern))]
 -modules = ["%s.%s.%s" % (parent, self, basename(m)) for m in set(modules)]
-+
-+exts = ('.py', '.pyo', '.pyc')
++exts = (".py", ".pyo", ".pyc")
 +modules = set()
 +for ext in exts:
-+    modules = modules | set(f[:-len(ext)] for f in glob(join(base, "[!_]*" + ext)))
++    modules = modules | set(splitext(f)[0] for f in glob(join(base, "[!_]*" + ext)))
 +modules = ["%s.%s.%s" % (parent, self, basename(m)) for m in modules]
  
  _infos = {}
  for i, name in enumerate(modules):
-diff -Nur quodlibet-2.4.orig/quodlibet/plugins/__init__.py quodlibet-2.4/quodlibet/plugins/__init__.py
---- quodlibet-2.4.orig/quodlibet/plugins/__init__.py	2012-03-18 15:19:05.000000000 +0000
-+++ quodlibet-2.4/quodlibet/plugins/__init__.py	2012-06-16 17:32:18.000000000 +0100
+diff -uNr quodlibet-2.4.orig/quodlibet/plugins/__init__.py quodlibet-2.4/quodlibet/plugins/__init__.py
+--- quodlibet-2.4.orig/quodlibet/plugins/__init__.py	2012-03-18 16:19:05.000000000 +0100
++++ quodlibet-2.4/quodlibet/plugins/__init__.py	2012-06-17 23:50:34.274273069 +0200
 @@ -140,7 +140,11 @@
          """Check directories for new or changed plugins."""
  
          for scandir in self.scan:
 -            try: names = glob.glob(os.path.join(scandir, "[!_]*.py"))
-+            try: 
-+              exts = ('.py', '.pyo', '.pyc')
-+              names = set()
-+              for ext in exts:
-+                  names = names | set(glob.glob(os.path.join(scandir, "[!_]*" + ext)))
++            try:
++                exts = (".py", ".pyo", ".pyc")
++                names = set()
++                for ext in exts:
++                    names = names | set(glob.glob(os.path.join(scandir, "[!_]*" + ext)))
              except OSError: continue
              for pathname in names:
                  name = os.path.basename(pathname)

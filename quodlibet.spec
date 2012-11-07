@@ -114,9 +114,12 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}/%{name}/images/hicolor
 %dir %{py_sitedir}/%{name}/images/hicolor/[0-9]*x*
 %dir %{py_sitedir}/%{name}/images/hicolor/*x*/*
+%dir %{py_sitedir}/%{name}/images/hicolor/scalable
+%dir %{py_sitedir}/%{name}/images/hicolor/scalable/*
 %{py_sitedir}/%{name}/images/hicolor/icon-theme.cache
 %{py_sitedir}/%{name}/images/hicolor/index.theme
 %{py_sitedir}/%{name}/images/hicolor/*x*/*/*.png
+%{py_sitedir}/%{name}/images/hicolor/scalable/*/*.svg
 %dir %{py_sitedir}/%{name}/library
 %{py_sitedir}/%{name}/library/*.py[co]
 %attr(755,root,root) %{py_sitedir}/%{name}/*.so

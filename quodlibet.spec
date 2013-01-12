@@ -5,12 +5,12 @@
 Summary:	Quod Libet - GTK+-based audio player
 Summary(pl.UTF-8):	Quod Libet - odtwarzacz dźwięku oparty na GTK+
 Name:		quodlibet
-Version:	2.4.1
-Release:	3
+Version:	2.5
+Release:	0.2
 License:	GPL v2
 Group:		X11/Applications/Multimedia
 Source0:	http://quodlibet.googlecode.com/files/%{name}-%{version}.tar.gz
-# Source0-md5:	00cf65f0deb7c50540225f06a57be7e9
+# Source0-md5:	e014937b2c7623b98e1b31d59fca4a01
 Patch0:		%{name}-home_etc.patch
 Patch1:		%{name}-nopy.patch
 Patch2:		%{name}-desktop.patch
@@ -69,7 +69,7 @@ python-pyao, python-mad, python-pyid3lib.
 %setup -q
 %{?with_home_etc:%patch0 -p1}
 %patch1 -p1
-%patch2 -p1
+#%patch2 -p1
 %{__rm} po/gl_ES.po
 
 %build
@@ -108,21 +108,10 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/%{name}/devices
 %dir %{py_sitedir}/%{name}/formats
 %{py_sitedir}/%{name}/formats/*.py[co]
-%dir %{py_sitedir}/%{name}/images
-%{py_sitedir}/%{name}/images/*.png
-%{py_sitedir}/%{name}/images/*.svg
-%dir %{py_sitedir}/%{name}/images/hicolor
-%dir %{py_sitedir}/%{name}/images/hicolor/[0-9]*x*
-%dir %{py_sitedir}/%{name}/images/hicolor/*x*/*
-%dir %{py_sitedir}/%{name}/images/hicolor/scalable
-%dir %{py_sitedir}/%{name}/images/hicolor/scalable/*
-%{py_sitedir}/%{name}/images/hicolor/icon-theme.cache
-%{py_sitedir}/%{name}/images/hicolor/index.theme
-%{py_sitedir}/%{name}/images/hicolor/*x*/*/*.png
-%{py_sitedir}/%{name}/images/hicolor/scalable/*/*.svg
+%{py_sitedir}/%{name}/images
 %dir %{py_sitedir}/%{name}/library
 %{py_sitedir}/%{name}/library/*.py[co]
-%attr(755,root,root) %{py_sitedir}/%{name}/*.so
+#%attr(755,root,root) %{py_sitedir}/%{name}/*.so
 %dir %{py_sitedir}/%{name}/parse
 %{py_sitedir}/%{name}/parse/*.py[co]
 %dir %{py_sitedir}/%{name}/player
@@ -139,4 +128,6 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/%{name}/util/*.py[co]
 %{_desktopdir}/*.desktop
 %{_pixmapsdir}/*
+%{_iconsdir}/hicolor/*/apps/*.png
+%{_iconsdir}/hicolor/*/apps/*.svg
 %{_mandir}/man1/*

@@ -5,38 +5,42 @@
 Summary:	Quod Libet - GTK+-based audio player
 Summary(pl.UTF-8):	Quod Libet - odtwarzacz dźwięku oparty na GTK+
 Name:		quodlibet
-Version:	2.5
-Release:	0.2
+Version:	2.5.1
+Release:	1
 License:	GPL v2
 Group:		X11/Applications/Multimedia
 Source0:	http://quodlibet.googlecode.com/files/%{name}-%{version}.tar.gz
-# Source0-md5:	e014937b2c7623b98e1b31d59fca4a01
+# Source0-md5:	946b8fa90d609cb5f7d4120bbcea8c59
 Patch0:		%{name}-home_etc.patch
 Patch1:		%{name}-nopy.patch
 Patch2:		%{name}-desktop.patch
 URL:		http://code.google.com/p/quodlibet/
 BuildRequires:	gettext-devel
-BuildRequires:	gtk+2-devel >= 2:2.12.0
 BuildRequires:	intltool
-BuildRequires:	pkgconfig
-# 2.5 needed for ctypes
-BuildRequires:	python-devel >= 1:2.5
-BuildRequires:	python-pygtk-devel >= 2:2.12.0
+BuildRequires:	python-modules >= 1:2.6
 BuildRequires:	rpm-pythonprov
-%pyrequires_eq	python-modules
 Requires:	gstreamer0.10-GConf
 Requires:	gstreamer0.10-audio-effects-base
-Requires:	gtk+2 >= 2:2.12.0
-Requires:	python-gnome-gconf
+Requires:	python-dbus
 Requires:	python-gstreamer >= 0.10.2-2
-Requires:	python-mutagen >= 1.11
-Requires:	python-pycairo
-Requires:	python-pygtk-gtk >= 2:2.12.0
+Requires:	python-modules
+Requires:	python-mutagen >= 1.14
+Requires:	python-pygobject
+Requires:	python-pygtk-gtk >= 2:2.16.0
+Requires:	python-pygtk-pango
 Suggests:	%{name}-plugins
 Suggests:	gstreamer0.10-audiosink
 Suggests:	gstreamer0.10-mad
 Suggests:	gstreamer0.10-musepack
 Suggests:	gstreamer0.10-vorbis
+Suggests:	libmodplug
+Suggests:	python-feedparser
+Suggests:	python-gnome
+Suggests:	python-gnome-ui
+Suggests:	python-gpod
+Suggests:	python-gtksourceview2
+Suggests:	python-keybinder
+Suggests:	udev-libs
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -111,7 +115,6 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/%{name}/images
 %dir %{py_sitedir}/%{name}/library
 %{py_sitedir}/%{name}/library/*.py[co]
-#%attr(755,root,root) %{py_sitedir}/%{name}/*.so
 %dir %{py_sitedir}/%{name}/parse
 %{py_sitedir}/%{name}/parse/*.py[co]
 %dir %{py_sitedir}/%{name}/player

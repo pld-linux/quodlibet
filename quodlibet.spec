@@ -1,46 +1,43 @@
-#
-# Conditional build:
-%bcond_without	home_etc	# don't use home_etc
-#
 Summary:	Quod Libet - GTK+-based audio player
 Summary(pl.UTF-8):	Quod Libet - odtwarzacz dźwięku oparty na GTK+
 Name:		quodlibet
-Version:	2.5.1
-Release:	1
+Version:	2.9.82
+Release:	0.2
 License:	GPL v2
 Group:		X11/Applications/Multimedia
 Source0:	http://quodlibet.googlecode.com/files/%{name}-%{version}.tar.gz
-# Source0-md5:	946b8fa90d609cb5f7d4120bbcea8c59
-Patch0:		%{name}-home_etc.patch
-Patch1:		%{name}-nopy.patch
-Patch2:		%{name}-desktop.patch
+# Source0-md5:	fbab9dc2fcc3cd9202b87526db8bea45
+Patch0:		%{name}-nopy.patch
+Patch1:		%{name}-desktop.patch
 URL:		http://code.google.com/p/quodlibet/
 BuildRequires:	gettext-devel
 BuildRequires:	intltool
 BuildRequires:	python-modules >= 1:2.6
 BuildRequires:	rpm-pythonprov
-Requires:	gstreamer0.10-GConf
-Requires:	gstreamer0.10-audio-effects-base
+Requires:	gdk-pixbuf2
+Requires:	gobject-introspection
+Requires:	gstreamer >= 1.0
+#Requires:	gstreamer-GConf >= 1.0
+Requires:	gstreamer-audio-effects-base >= 1.0
+Requires:	gstreamer-plugins-base >= 1.0
+Requires:	gtk+3
+Requires:	pango
 Requires:	python-dbus
 Requires:	python-gstreamer >= 0.10.2-2
-Requires:	python-modules
+Requires:	python-modules >= 1:2.6
 Requires:	python-mutagen >= 1.14
-Requires:	python-pygobject
-Requires:	python-pygtk-gtk >= 2:2.16.0
-Requires:	python-pygtk-pango
+Requires:	python-pygobject3
 Suggests:	%{name}-plugins
-Suggests:	gstreamer0.10-audiosink
-Suggests:	gstreamer0.10-mad
-Suggests:	gstreamer0.10-musepack
-Suggests:	gstreamer0.10-vorbis
+Suggests:	gstreamer-audiosink
+Suggests:	gstreamer-mad
+Suggests:	gstreamer-musepack
+Suggests:	gstreamer-vorbis
+Suggests:	libgpod
 Suggests:	libmodplug
 Suggests:	python-feedparser
-Suggests:	python-gnome
-Suggests:	python-gnome-ui
-Suggests:	python-gpod
-Suggests:	python-gtksourceview2
 Suggests:	python-keybinder
 Suggests:	udev-libs
+Conflicts:	quodlibet-plugins < 2.9.82
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -71,10 +68,10 @@ python-pyao, python-mad, python-pyid3lib.
 
 %prep
 %setup -q
-%{?with_home_etc:%patch0 -p1}
+%patch0 -p1
 %patch1 -p1
-#%patch2 -p1
 %{__rm} po/gl_ES.po
+mv po/cs{_CZ,}.po
 
 %build
 CFLAGS="%{rpmcflags}"; export CFLAGS
@@ -107,8 +104,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}/%{name}
 %{py_sitedir}/%{name}/*.py[co]
 %{py_sitedir}/%{name}/browsers
-%dir %{py_sitedir}/%{name}/debug
-%{py_sitedir}/%{name}/debug/*.py[co]
+#%dir %{py_sitedir}/%{name}/debug
+#%{py_sitedir}/%{name}/debug/*.py[co]
 %{py_sitedir}/%{name}/devices
 %dir %{py_sitedir}/%{name}/formats
 %{py_sitedir}/%{name}/formats/*.py[co]

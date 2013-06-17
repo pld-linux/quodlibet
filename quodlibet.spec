@@ -1,12 +1,14 @@
+# TODO: /usr/share/gnome-shell/search-providers/quodlibet-search-provider.ini
+#
 Summary:	Quod Libet - GTK+-based audio player
 Summary(pl.UTF-8):	Quod Libet - odtwarzacz dźwięku oparty na GTK+
 Name:		quodlibet
-Version:	2.9.91
-Release:	0.2
+Version:	3.0.0
+Release:	1
 License:	GPL v2
 Group:		X11/Applications/Multimedia
 Source0:	http://quodlibet.googlecode.com/files/%{name}-%{version}.tar.gz
-# Source0-md5:	3f1b1b6e2a04d1a2bfb14369979817b2
+# Source0-md5:	38803746fc7b33ac3f692c384617a942
 Patch0:		%{name}-nopy.patch
 Patch1:		%{name}-desktop.patch
 URL:		http://code.google.com/p/quodlibet/

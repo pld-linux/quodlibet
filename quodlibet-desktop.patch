@@ -1,8 +1,8 @@
---- quodlibet-2.9.82/exfalso.desktop.in.wiget	2013-05-04 10:57:42.889632334 +0200
-+++ quodlibet-2.9.82/exfalso.desktop.in	2013-05-04 10:58:06.125596848 +0200
-@@ -8,4 +8,4 @@ StartupNotify=true
+--- quodlibet-3.0.0/data/exfalso.desktop.in.wiget	2013-06-17 11:50:42.825818860 +0200
++++ quodlibet-3.0.0/data/exfalso.desktop.in	2013-06-17 11:51:10.214624313 +0200
+@@ -7,4 +7,4 @@ Terminal=false
+ StartupNotify=true
  Type=Application
  Icon=exfalso
- MimeType=inode/directory;
 -Categories=AudioVideo;Audio;GTK;
 +Categories=AudioVideo;Audio;AudioVideoEditing;GTK;

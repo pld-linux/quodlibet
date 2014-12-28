@@ -12,7 +12,7 @@ Source0:	http://quodlibet.googlecode.com/files/%{name}-%{version}.tar.gz
 Patch0:		%{name}-nopy.patch
 Patch1:		%{name}-desktop.patch
 URL:		http://code.google.com/p/quodlibet/
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	intltool
 BuildRequires:	python-modules >= 1:2.6
 BuildRequires:	rpm-pythonprov

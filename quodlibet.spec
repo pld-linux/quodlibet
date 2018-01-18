@@ -1,21 +1,24 @@
 # TODO: /usr/share/gnome-shell/search-providers/quodlibet-search-provider.ini
 #
+%define		module		quodlibet
+%define		egg_name	quodlibet
 Summary:	Quod Libet - GTK+-based audio player
 Summary(pl.UTF-8):	Quod Libet - odtwarzacz dźwięku oparty na GTK+
 Name:		quodlibet
-Version:	3.0.0
+Version:	4.0.2
 Release:	1
 License:	GPL v2
 Group:		X11/Applications/Multimedia
-Source0:	http://quodlibet.googlecode.com/files/%{name}-%{version}.tar.gz
-# Source0-md5:	38803746fc7b33ac3f692c384617a942
+Source0:	https://github.com/quodlibet/quodlibet/releases/download/release-%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	f8f282e7cc43f2ec2148dd2e9d93808d
 Patch0:		%{name}-nopy.patch
-Patch1:		%{name}-desktop.patch
-URL:		http://code.google.com/p/quodlibet/
+URL:		https://quodlibet.readthedocs.org
 BuildRequires:	gettext-tools
 BuildRequires:	intltool
-BuildRequires:	python-modules >= 1:2.6
+BuildRequires:	python3-modules
+BuildRequires:	python3-setuptools
 BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.719
 Requires:	gdk-pixbuf2
 Requires:	gobject-introspection
 Requires:	gstreamer >= 1.0
@@ -24,11 +27,11 @@ Requires:	gstreamer-audio-effects-base >= 1.0
 Requires:	gstreamer-plugins-base >= 1.0
 Requires:	gtk+3
 Requires:	pango
-Requires:	python-dbus
-Requires:	python-gstreamer >= 0.10.2-2
-Requires:	python-modules >= 1:2.6
-Requires:	python-mutagen >= 1.14
-Requires:	python-pygobject3
+#Requires:	python-dbus
+#Requires:	python-gstreamer >= 0.10.2-2
+#Requires:	python-pygobject3
+Requires:	python3-feedparser
+Requires:	python3-mutagen >= 1.14
 Suggests:	%{name}-plugins
 Suggests:	gstreamer-audiosink
 Suggests:	gstreamer-mad
@@ -36,10 +39,10 @@ Suggests:	gstreamer-musepack
 Suggests:	gstreamer-vorbis
 Suggests:	libgpod
 Suggests:	libmodplug
-Suggests:	python-feedparser
-Suggests:	python-keybinder
+#Suggests:	python-keybinder
 Suggests:	udev-libs
 Conflicts:	quodlibet-plugins < 2.9.82
+BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -70,28 +73,18 @@ python-pyao, python-mad, python-pyid3lib.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%{__rm} po/gl_ES.po
-mv po/cs{_CZ,}.po
+#%patch0 -p1
 
 %build
-CFLAGS="%{rpmcflags}"; export CFLAGS
-%{__python} ./setup.py build
+%py3_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_pixmapsdir} \
-	$RPM_BUILD_ROOT%{py_sitedir}/%{name}/plugins/{editing,events,playorder,songsmenu}
+%py3_install
 
-%{__python} -- setup.py install \
-	--root=$RPM_BUILD_ROOT \
-	--install-lib=%{py_sitedir} \
-	--optimize=2
-
-install quodlibet/images/hicolor/64x64/apps/{exfalso,quodlibet}.png $RPM_BUILD_ROOT%{_pixmapsdir}
-
-%py_postclean
+# adjust for pld path (no vendor support yet)
+install -d $RPM_BUILD_ROOT%{zsh_compdir}
+mv $RPM_BUILD_ROOT{%{_datadir}/zsh/vendor-completions,%{zsh_compdir}}/_quodlibet
 
 %find_lang %{name}
 
@@ -101,35 +94,23 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc NEWS README
-%attr(755,root,root) %{_bindir}/*
-%{py_sitedir}/*.egg-info
-%dir %{py_sitedir}/%{name}
-%{py_sitedir}/%{name}/*.py[co]
-%{py_sitedir}/%{name}/browsers
-#%dir %{py_sitedir}/%{name}/debug
-#%{py_sitedir}/%{name}/debug/*.py[co]
-%{py_sitedir}/%{name}/devices
-%dir %{py_sitedir}/%{name}/formats
-%{py_sitedir}/%{name}/formats/*.py[co]
-%{py_sitedir}/%{name}/images
-%dir %{py_sitedir}/%{name}/library
-%{py_sitedir}/%{name}/library/*.py[co]
-%dir %{py_sitedir}/%{name}/parse
-%{py_sitedir}/%{name}/parse/*.py[co]
-%dir %{py_sitedir}/%{name}/player
-%{py_sitedir}/%{name}/player/*.py[co]
-%dir %{py_sitedir}/%{name}/plugins
-%{py_sitedir}/%{name}/plugins/*.py[co]
-%dir %{py_sitedir}/%{name}/plugins/editing
-%dir %{py_sitedir}/%{name}/plugins/events
-%dir %{py_sitedir}/%{name}/plugins/playorder
-%dir %{py_sitedir}/%{name}/plugins/songsmenu
-%dir %{py_sitedir}/%{name}/qltk
-%{py_sitedir}/%{name}/qltk/*.py[co]
-%dir %{py_sitedir}/%{name}/util
-%{py_sitedir}/%{name}/util/*.py[co]
-%{_desktopdir}/*.desktop
-%{_pixmapsdir}/*
-%{_iconsdir}/hicolor/*/apps/*.png
-%{_iconsdir}/hicolor/*/apps/*.svg
-%{_mandir}/man1/*
+%attr(755,root,root) %{_bindir}/exfalso
+%attr(755,root,root) %{_bindir}/operon
+%attr(755,root,root) %{_bindir}/quodlibet
+%{_mandir}/man1/exfalso.1*
+%{_mandir}/man1/operon.1*
+%{_mandir}/man1/quodlibet.1*
+%{_desktopdir}/exfalso.desktop
+%{_desktopdir}/quodlibet.desktop
+%{_iconsdir}/hicolor/*/apps/exfalso.png
+%{_iconsdir}/hicolor/*/apps/quodlibet.png
+%{_iconsdir}/hicolor/scalable/apps/exfalso-symbolic.svg
+%{_iconsdir}/hicolor/scalable/apps/exfalso.svg
+%{_iconsdir}/hicolor/scalable/apps/quodlibet-symbolic.svg
+%{_iconsdir}/hicolor/scalable/apps/quodlibet.svg
+%{_datadir}/appdata/exfalso.appdata.xml
+%{_datadir}/appdata/quodlibet.appdata.xml
+%{_datadir}/dbus-1/services/net.sacredchao.QuodLibet.service
+%{zsh_compdir}/_quodlibet
+%{py3_sitescriptdir}/%{egg_name}-%{version}-py*.egg-info
+%{py3_sitescriptdir}/%{module}

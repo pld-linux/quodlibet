@@ -1,8 +1,0 @@
---- quodlibet-3.0.0/data/exfalso.desktop.in.wiget	2013-06-17 11:50:42.825818860 +0200
-+++ quodlibet-3.0.0/data/exfalso.desktop.in	2013-06-17 11:51:10.214624313 +0200
-@@ -7,4 +7,4 @@ Terminal=false
- StartupNotify=true
- Type=Application
- Icon=exfalso
--Categories=AudioVideo;Audio;GTK;
-+Categories=AudioVideo;Audio;AudioVideoEditing;GTK;

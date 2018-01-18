@@ -43,6 +43,7 @@ Suggests:	python-feedparser
 Suggests:	python-keybinder
 Suggests:	udev-libs
 Conflicts:	quodlibet-plugins < 2.9.82
+BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description

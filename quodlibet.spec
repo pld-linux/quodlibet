@@ -112,7 +112,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/appdata/exfalso.appdata.xml
 %{_datadir}/appdata/quodlibet.appdata.xml
 %{_datadir}/dbus-1/services/net.sacredchao.QuodLibet.service
-%{_datadir}/gnome-shell/search-providers/quodlibet-search-provider.ini
 %{zsh_compdir}/_quodlibet
 %{py3_sitescriptdir}/%{egg_name}-%{version}-py*.egg-info
 %{py3_sitescriptdir}/%{module}

@@ -6,7 +6,7 @@ Summary:	Quod Libet - GTK+-based audio player
 Summary(pl.UTF-8):	Quod Libet - odtwarzacz dźwięku oparty na GTK+
 Name:		quodlibet
 Version:	4.0.2
-Release:	0.1
+Release:	0.2
 License:	GPL v2
 Group:		X11/Applications/Multimedia
 Source0:	https://github.com/quodlibet/quodlibet/releases/download/release-%{version}/%{name}-%{version}.tar.gz
@@ -83,11 +83,6 @@ python-pyao, python-mad, python-pyid3lib.
 rm -rf $RPM_BUILD_ROOT
 %py3_install
 
-install -d $RPM_BUILD_ROOT%{_pixmapsdir} \
-	$RPM_BUILD_ROOT%{py3_sitedir}/%{name}/plugins/{editing,events,playorder,songsmenu}
-
-cp -p quodlibet/images/hicolor/64x64/apps/{exfalso,quodlibet}.png $RPM_BUILD_ROOT%{_pixmapsdir}
-
 # adjust for pld path (no vendor support yet)
 install -d $RPM_BUILD_ROOT%{zsh_compdir}
 mv $RPM_BUILD_ROOT{%{_datadir}/zsh/vendor-completions,%{zsh_compdir}}/_quodlibet
@@ -114,8 +109,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/hicolor/scalable/apps/exfalso.svg
 %{_iconsdir}/hicolor/scalable/apps/quodlibet-symbolic.svg
 %{_iconsdir}/hicolor/scalable/apps/quodlibet.svg
-%{_pixmapsdir}/exfalso.png
-%{_pixmapsdir}/quodlibet.png
 %{_datadir}/appdata/exfalso.appdata.xml
 %{_datadir}/appdata/quodlibet.appdata.xml
 %{_datadir}/dbus-1/services/net.sacredchao.QuodLibet.service

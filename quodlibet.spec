@@ -71,6 +71,27 @@ Aby używać wszystkich możliwości Quod Libet (włącznie z odtwarzaniem
 dźwięku) potrzebne są także następujące pakiety: python-pyvorbis,
 python-pyao, python-mad, python-pyid3lib.
 
+%package -n exfalso
+Summary:	Tag editor for various music files
+Group:		X11/Applications/Multimedia
+Requires:	gnome-icon-theme-symbolic
+Requires:	gtk+3 >= 3.18
+Requires:	gtk-webkit4
+Requires:	hicolor-icon-theme
+Requires:	libsoup >= 2.44
+Requires:	pkgconfig
+Requires:	python-pygobject3 >= 3.18
+Requires:	python3 >= 1:3.5
+Requires:	python3-feedparser
+Requires:	python3-mutagen >= 1.14
+# for musicbrainz plugin
+#Requires:	python3-musicbrainzngs
+
+%description -n exfalso
+Ex Falso is a tag editor with the same tag editing interface as Quod
+Libet, but it does not play files. Supported file formats include Ogg
+Vorbis, MP3, FLAC, MOD/XM/IT, Musepack, Wavpack, and MPEG-4 AAC.
+
 %prep
 %setup -q
 #%patch0 -p1
@@ -94,23 +115,26 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc NEWS README
-%attr(755,root,root) %{_bindir}/exfalso
 %attr(755,root,root) %{_bindir}/operon
 %attr(755,root,root) %{_bindir}/quodlibet
-%{_mandir}/man1/exfalso.1*
 %{_mandir}/man1/operon.1*
 %{_mandir}/man1/quodlibet.1*
-%{_desktopdir}/exfalso.desktop
 %{_desktopdir}/quodlibet.desktop
-%{_iconsdir}/hicolor/*/apps/exfalso.png
 %{_iconsdir}/hicolor/*/apps/quodlibet.png
-%{_iconsdir}/hicolor/scalable/apps/exfalso-symbolic.svg
-%{_iconsdir}/hicolor/scalable/apps/exfalso.svg
 %{_iconsdir}/hicolor/scalable/apps/quodlibet-symbolic.svg
 %{_iconsdir}/hicolor/scalable/apps/quodlibet.svg
-%{_datadir}/appdata/exfalso.appdata.xml
 %{_datadir}/appdata/quodlibet.appdata.xml
 %{_datadir}/dbus-1/services/net.sacredchao.QuodLibet.service
 %{zsh_compdir}/_quodlibet
 %{py3_sitescriptdir}/%{egg_name}-%{version}-py*.egg-info
 %{py3_sitescriptdir}/%{module}
+
+%files -n exfalso
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/exfalso
+%{_mandir}/man1/exfalso.1*
+%{_desktopdir}/exfalso.desktop
+%{_iconsdir}/hicolor/*/apps/exfalso.png
+%{_iconsdir}/hicolor/scalable/apps/exfalso-symbolic.svg
+%{_iconsdir}/hicolor/scalable/apps/exfalso.svg
+%{_datadir}/appdata/exfalso.appdata.xml

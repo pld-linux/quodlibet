@@ -18,7 +18,7 @@ BuildRequires:	intltool
 BuildRequires:	python3-modules
 BuildRequires:	python3-setuptools
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.714
+BuildRequires:	rpmbuild(macros) >= 1.719
 Requires:	gdk-pixbuf2
 Requires:	gobject-introspection
 Requires:	gstreamer >= 1.0
@@ -87,6 +87,9 @@ install -d $RPM_BUILD_ROOT%{_pixmapsdir} \
 
 cp -p quodlibet/images/hicolor/64x64/apps/{exfalso,quodlibet}.png $RPM_BUILD_ROOT%{_pixmapsdir}
 
+# adjust for pld path (no vendor support yet)
+install -d $RPM_BUILD_ROOT%{zsh_compdir}
+mv $RPM_BUILD_ROOT{%{_datadir}/zsh/vendor-completions,%{zsh_compdir}}/_quodlibet
 
 %find_lang %{name}
 
@@ -116,5 +119,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/appdata/quodlibet.appdata.xml
 %{_datadir}/dbus-1/services/net.sacredchao.QuodLibet.service
 %{_datadir}/gnome-shell/search-providers/quodlibet-search-provider.ini
+%{zsh_compdir}/_quodlibet
 %{py3_sitescriptdir}/%{egg_name}-%{version}-py*.egg-info
 %{py3_sitescriptdir}/%{module}

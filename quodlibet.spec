@@ -13,8 +13,10 @@ Patch0:		%{name}-nopy.patch
 URL:		https://quodlibet.readthedocs.org
 BuildRequires:	gettext-tools
 BuildRequires:	intltool
-BuildRequires:	python-modules >= 1:2.6
+BuildRequires:	python3-modules
+BuildRequires:	python3-setuptools
 BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.714
 Requires:	gdk-pixbuf2
 Requires:	gobject-introspection
 Requires:	gstreamer >= 1.0
@@ -72,22 +74,17 @@ python-pyao, python-mad, python-pyid3lib.
 #%patch0 -p1
 
 %build
-CFLAGS="%{rpmcflags}"; export CFLAGS
-%{__python} ./setup.py build
+%py3_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
+%py3_install
+
 install -d $RPM_BUILD_ROOT%{_pixmapsdir} \
 	$RPM_BUILD_ROOT%{py_sitedir}/%{name}/plugins/{editing,events,playorder,songsmenu}
 
-%{__python} -- setup.py install \
-	--root=$RPM_BUILD_ROOT \
-	--install-lib=%{py_sitedir} \
-	--optimize=2
+cp -p quodlibet/images/hicolor/64x64/apps/{exfalso,quodlibet}.png $RPM_BUILD_ROOT%{_pixmapsdir}
 
-install quodlibet/images/hicolor/64x64/apps/{exfalso,quodlibet}.png $RPM_BUILD_ROOT%{_pixmapsdir}
-
-%py_postclean
 
 %find_lang %{name}
 

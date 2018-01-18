@@ -27,11 +27,11 @@ Requires:	gstreamer-audio-effects-base >= 1.0
 Requires:	gstreamer-plugins-base >= 1.0
 Requires:	gtk+3
 Requires:	pango
-Requires:	python-dbus
-Requires:	python-gstreamer >= 0.10.2-2
-Requires:	python-modules >= 1:2.6
-Requires:	python-mutagen >= 1.14
-Requires:	python-pygobject3
+#Requires:	python-dbus
+#Requires:	python-gstreamer >= 0.10.2-2
+#Requires:	python-pygobject3
+Requires:	python3-feedparser
+Requires:	python3-mutagen >= 1.14
 Suggests:	%{name}-plugins
 Suggests:	gstreamer-audiosink
 Suggests:	gstreamer-mad
@@ -39,8 +39,7 @@ Suggests:	gstreamer-musepack
 Suggests:	gstreamer-vorbis
 Suggests:	libgpod
 Suggests:	libmodplug
-Suggests:	python-feedparser
-Suggests:	python-keybinder
+#Suggests:	python-keybinder
 Suggests:	udev-libs
 Conflicts:	quodlibet-plugins < 2.9.82
 BuildArch:	noarch

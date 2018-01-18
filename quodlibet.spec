@@ -1,5 +1,7 @@
 # TODO: /usr/share/gnome-shell/search-providers/quodlibet-search-provider.ini
 #
+%define		module		quodlibet
+%define		egg_name	quodlibet
 Summary:	Quod Libet - GTK+-based audio player
 Summary(pl.UTF-8):	Quod Libet - odtwarzacz dźwięku oparty na GTK+
 Name:		quodlibet
@@ -81,7 +83,7 @@ rm -rf $RPM_BUILD_ROOT
 %py3_install
 
 install -d $RPM_BUILD_ROOT%{_pixmapsdir} \
-	$RPM_BUILD_ROOT%{py_sitedir}/%{name}/plugins/{editing,events,playorder,songsmenu}
+	$RPM_BUILD_ROOT%{py3_sitedir}/%{name}/plugins/{editing,events,playorder,songsmenu}
 
 cp -p quodlibet/images/hicolor/64x64/apps/{exfalso,quodlibet}.png $RPM_BUILD_ROOT%{_pixmapsdir}
 
@@ -94,35 +96,25 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc NEWS README
-%attr(755,root,root) %{_bindir}/*
-%{py_sitedir}/*.egg-info
-%dir %{py_sitedir}/%{name}
-%{py_sitedir}/%{name}/*.py[co]
-%{py_sitedir}/%{name}/browsers
-#%dir %{py_sitedir}/%{name}/debug
-#%{py_sitedir}/%{name}/debug/*.py[co]
-%{py_sitedir}/%{name}/devices
-%dir %{py_sitedir}/%{name}/formats
-%{py_sitedir}/%{name}/formats/*.py[co]
-%{py_sitedir}/%{name}/images
-%dir %{py_sitedir}/%{name}/library
-%{py_sitedir}/%{name}/library/*.py[co]
-%dir %{py_sitedir}/%{name}/parse
-%{py_sitedir}/%{name}/parse/*.py[co]
-%dir %{py_sitedir}/%{name}/player
-%{py_sitedir}/%{name}/player/*.py[co]
-%dir %{py_sitedir}/%{name}/plugins
-%{py_sitedir}/%{name}/plugins/*.py[co]
-%dir %{py_sitedir}/%{name}/plugins/editing
-%dir %{py_sitedir}/%{name}/plugins/events
-%dir %{py_sitedir}/%{name}/plugins/playorder
-%dir %{py_sitedir}/%{name}/plugins/songsmenu
-%dir %{py_sitedir}/%{name}/qltk
-%{py_sitedir}/%{name}/qltk/*.py[co]
-%dir %{py_sitedir}/%{name}/util
-%{py_sitedir}/%{name}/util/*.py[co]
-%{_desktopdir}/*.desktop
-%{_pixmapsdir}/*
-%{_iconsdir}/hicolor/*/apps/*.png
-%{_iconsdir}/hicolor/*/apps/*.svg
-%{_mandir}/man1/*
+%attr(755,root,root) %{_bindir}/exfalso
+%attr(755,root,root) %{_bindir}/operon
+%attr(755,root,root) %{_bindir}/quodlibet
+%{_mandir}/man1/exfalso.1*
+%{_mandir}/man1/operon.1*
+%{_mandir}/man1/quodlibet.1*
+%{_desktopdir}/exfalso.desktop
+%{_desktopdir}/quodlibet.desktop
+%{_iconsdir}/hicolor/*/apps/exfalso.png
+%{_iconsdir}/hicolor/*/apps/quodlibet.png
+%{_iconsdir}/hicolor/scalable/apps/exfalso-symbolic.svg
+%{_iconsdir}/hicolor/scalable/apps/exfalso.svg
+%{_iconsdir}/hicolor/scalable/apps/quodlibet-symbolic.svg
+%{_iconsdir}/hicolor/scalable/apps/quodlibet.svg
+%{_pixmapsdir}/exfalso.png
+%{_pixmapsdir}/quodlibet.png
+%{_datadir}/appdata/exfalso.appdata.xml
+%{_datadir}/appdata/quodlibet.appdata.xml
+%{_datadir}/dbus-1/services/net.sacredchao.QuodLibet.service
+%{_datadir}/gnome-shell/search-providers/quodlibet-search-provider.ini
+%{py3_sitescriptdir}/%{egg_name}-%{version}-py*.egg-info
+%{py3_sitescriptdir}/%{module}

@@ -94,7 +94,7 @@ Vorbis, MP3, FLAC, MOD/XM/IT, Musepack, Wavpack, and MPEG-4 AAC.
 
 %prep
 %setup -q
-#%patch0 -p1
+#%%patch0 -p1
 
 %build
 %py3_build
